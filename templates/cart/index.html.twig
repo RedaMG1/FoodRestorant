@@ -1,20 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %}Hello CartController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<div class="container mt-5 mb-5">
+		<div class="d-flex justify-content-center row">
+			<h1 class="justify-content-center">Your cart items</h1>
+			<div class="col-md-10">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/wamp64/www/symfony/FoodRestorant/project/src/Controller/CartController.php'|file_link(0) }}">src/Controller/CartController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/wamp64/www/symfony/FoodRestorant/project/templates/cart/index.html.twig'|file_link(0) }}">templates/cart/index.html.twig</a></code></li>
-    </ul>
-</div>
+				{% for key, cartItem in cart %}
+					<div class="row p-2 bg-white border rounded">
+						<div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="{{ asset('assets/images/' ~ cartItem.product.image) }}"></div>
+						<div class="col-md-6 mt-1">
+
+							<h5>{{ cartItem.product.name }}</h5>
+							<div class="mt-1 mb-1 spec-1">
+								<p>{{ cartItem.product.description }}</p>
+							</div>
+							<div class="col-md-3 col-lg-3 col-xl-2 d-flex align-items-center">
+								<p class="mb-0 mr-2">Quantity:</p>
+
+								{# <button class="btn btn-link px-2">
+																																									-
+																																								</button> #}
+								<input type="number" class="form-control form-control-sm" value="{{ cartItem.quantity }}" id="tentacles"/>
+							<!-- Adjust the 'w-50' class to set the width as needed -->
+								{# <button class="btn btn-link px-2">
+																																									+
+																																								</button> #}
+							</div>
+
+
+						</div>
+						<div class="align-items-center align-content-center col-md-3 border-left mt-1">
+							<div class="d-flex flex-row align-items-center">
+								<h4 class="mr-1">${{ cartItem.product.price }}</h4>
+
+							</div>
+							<h6 class="text-success">Free shipping</h6>
+							<div class="d-flex flex-column mt-4">
+								<button class="btn btn-primary btn-sm" type="button">Details</button>
+								<button class="btn btn-outline-primary btn-sm mt-2" id = "deleteBtn"  type="button">Delete from cart</button>
+							</div>
+						</div>
+
+					</div>
+
+				{% endfor %}
+			</div>
+
+		</div>
+		<div class="row justify-content-center mt-2">
+            <div class="col-md-2">
+                <button class="btn btn-primary btn-block" type="button">Payment</button>
+            </div>
+        </div>
+	</div>
 {% endblock %}

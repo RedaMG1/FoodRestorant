@@ -4,7 +4,6 @@ body {
   color: #0c0c0c;
   background-color: #ffffff;
   overflow-x: hidden;
-  background-color: #f3f3f3;
 }
 
 .layout_padding {
@@ -165,9 +164,7 @@ a:focus {
 .custom_nav-container .navbar-nav {
   padding-left: 18%;
 }
-nav{
-  background-color: #000000;
-}
+
 .custom_nav-container .navbar-nav .nav-item .nav-link {
   padding: 5px 20px;
   color: #ffffff;
@@ -1008,4 +1005,3 @@ nav{
   color: inherit;
 }
 /*# sourceMappingURL=style.css.map */
-

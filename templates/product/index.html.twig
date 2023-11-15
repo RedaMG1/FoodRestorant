@@ -4,42 +4,85 @@
 {% endblock %}
 
 {% block body %}
-    <body>
-        
-        <!-- Related items section-->
-        <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Related products</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    {% for key, product in products %}
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ asset('assets/images/' ~ product.image) }}"alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ product.name }}</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">${{ product.price }}</span>
-                                    
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href = "{{ path('product_add', { id: product.id }) }}">Add to cart</a></div>
-								
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    
-                </div>
-            </div>
-        </section>
-        
-    </body>
-{% endblock %}
+	<body
+		class="sub_page">
+
+		<!-- food section -->
+
+		<section class="food_section layout_padding">
+
+			<div class="container">
+				<div class="heading_container heading_center">
+					<h2>
+						Our Menu
+					</h2>
+				</div>
+
+				<ul class="filters_menu">
+					<li class="active" data-filter="*">All</li>
+					<li data-filter=".burger">Burger</li>
+					<li data-filter=".pizza">Pizza</li>
+					<li data-filter=".pasta">Pasta</li>
+					<li data-filter=".fries">Fries</li>
+				</ul>
+
+				<div class="filters-content">
+					<div class="row grid">
+						{% for key, product in products %}
+							<div class="col-sm-6 col-lg-4 all pizza">
+								<div class="box">
+									<div>
+										<div class="img-box">
+											<img src="{{ asset('assets/images/' ~ product.image) }}" alt="">
+										</div>
+										<div class="detail-box">
+											<h5>
+												{{ product.name }}
+											</h5>
+											<p>
+												{{ product.description }}
+												
+											</p>
+											<div class="options">
+												<h6>
+													${{ product.price }}
+												</h6>
+												<a href="{{ path('product_add', { id: product.id }) }}">
+													<i class="fas fa-shopping-cart"></i> 
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="btn-box">
+					<a href="">
+						View More
+					</a>
+				</div>
+			</div>
+
+		</section>
+
+		<!-- jQery -->
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<!-- popper js -->
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<!-- bootstrap js -->
+		<script src="js/bootstrap.js"></script>
+		<!-- owl slider -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+		<!-- isotope js -->
+		<script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+		<!-- nice select -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+		<!-- custom js -->
+		<script src="js/custom.js"></script>
+		<!-- Google Map -->
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+		<!-- End Google Map -->
+	</body>
+</body></html>{% endblock %}
