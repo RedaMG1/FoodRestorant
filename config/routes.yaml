@@ -15,3 +15,8 @@ product:
 cart:
     path: /cart
     controller: App\Controller\CartController::index
+
+product_details:
+    path: /product/{name}
+    controller: App\Controller\ProductController::details
+

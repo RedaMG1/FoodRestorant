@@ -1,0 +1,15 @@
+{# product/details.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Product Details
+{% endblock %}
+
+{% block body %}
+	{% for key, prod in products %}
+		<h1>{{ prod.name }}</h1>
+		<p>{{ prod.description }}</p>
+		<p>Price: ${{ prod.price }}</p>
+		{# Add more details as needed #}
+	{% endfor %}
+{% endblock %}

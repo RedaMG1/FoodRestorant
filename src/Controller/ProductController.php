@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\CartItem;
+use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\User;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Repository\CartItemRepository;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,16 +25,22 @@ class ProductController extends AbstractController
     public function index(
         ProductRepository $productRepository,
         PaginatorInterface $paginator,
-        Request $request
+        Request $request,
+        CategoryRepository $categoryRepository
     ): Response {
         $products = $paginator->paginate(
             $productRepository->findAll(), // query
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );
-
+        $categorys = $paginator->paginate(
+            $categoryRepository->findAll(), // query
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
         return $this->render('product/index.html.twig', [
             'products' => $products,
+            // 'categorys' => $categorys,
         ]);
     }
 
@@ -41,7 +51,7 @@ class ProductController extends AbstractController
         EntityManagerInterface $manager,
         CartItemRepository $cartItemRepository
     ): Response {
-        
+
         $logedUser = $security->getUser();
 
         $existingCartItem = $cartItemRepository->findOneBy([
@@ -60,11 +70,42 @@ class ProductController extends AbstractController
             $manager->persist($cartItem);
             $manager->flush();
         }
-
-
-            
-    
-
         return $this->redirectToRoute('product');
     }
+
+    #[Route('/product/{name}', name: 'product_details')]
+    public function details(
+        Product $product,string $name,ProductRepository $productRepository
+    ): Response {
+
+        $product = $productRepository->findOneBy(['name' => $name]);
+         if (!$product) {
+            throw $this->createNotFoundException('Product not found');
+        }
+
+        // Render the details template with the product data
+        return $this->render('product/details.html.twig', [
+            'productDetails' => $product,
+        ]);
+    }
+
+
+
+
+
+    // #[Route('/product/cat/{id}', name: 'product_filter')]
+    // public function categoryLink(
+    //     Product $product,Category $category,
+    //     Security $security,
+    //     EntityManagerInterface $manager,
+    //     CartItemRepository $cartItemRepository,ProductRepository $productRepository,
+    // ): Response {
+
+    //     $categoryId = $category->getId();
+    //     $products = $productRepository->findByCategory($categoryId);
+    //     dd($categoryId);
+    //     return $this->redirectToRoute('product', [
+    //         'products' => $products,
+    //     ]);
+    // }
 }
