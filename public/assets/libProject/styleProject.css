@@ -1023,3 +1023,6 @@ nav {
   background-color: rgb(244, 42, 42);
   transition: 0.5s;
 }
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
