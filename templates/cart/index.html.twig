@@ -10,7 +10,7 @@
 			<h1 class="justify-content-center">Your cart items</h1>
 			<div class="col-md-10">
 
-				{% for key, cartItem in cart %}
+				{% for key, cartItem in cartItems %}
 					<div class="row p-2 bg-white border rounded">
 						<div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="{{ asset('assets/images/' ~ cartItem.product.image) }}"></div>
 						<div class="col-md-6 mt-1">

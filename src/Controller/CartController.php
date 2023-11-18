@@ -22,26 +22,19 @@ class CartController extends AbstractController
     ,Request $request,CartItemRepository $cartItemRepository,
     PaginatorInterface $paginator): Response
     {
-        $cart = $paginator->paginate(
-            $cartItemRepository->findAll(),
-            $request->query->getInt('page', 1), /*page number*/
-            5 /*limit per page*/
-        );
+        $cartItems = $cartItemRepository->findAll();
+           
         return $this->render('cart/index.html.twig', [
-            'cart' => $cart,
+            'cartItems' => $cartItems,
         ]);
     }
 
     #[Route('/cart/remove/{id}', name: 'cart_remove')]
     public function remove(Security $security,CartItemRepository $cartItemRepository
-    ,Product $product,EntityManagerInterface $manager): Response
+    ,EntityManagerInterface $manager,$id): Response
     {
-        $logedUser = $security->getUser();
-        $existingCartItem = $cartItemRepository->findOneBy([
-            'product' => $product,
-        ]);
+        $existingCartItem = $cartItemRepository->findOneBy(['id' => $id]); 
         if ($existingCartItem) {
-           
             $manager->remove($existingCartItem);
             $manager->flush();
         } else {
@@ -49,11 +42,13 @@ class CartController extends AbstractController
         }
         return $this->redirectToRoute('cart');
     }
+
+
     #[Route('/cart/quantity/{id}', name: 'cart_quantity')]
     public function newQuanity(Security $security,CartItemRepository $cartItemRepository
     ,Product $product,EntityManagerInterface $manager): Response
     {
-        $logedUser = $security->getUser();
+        
         $existingCartItem = $cartItemRepository->findOneBy([
             'product' => $product,
         ]);

@@ -33,14 +33,12 @@ class ProductController extends AbstractController
             $request->query->getInt('page', 1), /*page number*/
             5 /*limit per page*/
         );
-        $categorys = $paginator->paginate(
-            $categoryRepository->findAll(), // query
-            $request->query->getInt('page', 1), /*page number*/
-            5 /*limit per page*/
-        );
+        $categorys = 
+            $categoryRepository->findAll();
+            
         return $this->render('product/index.html.twig', [
             'products' => $products,
-            // 'categorys' => $categorys,
+            'categorys' => $categorys,
         ]);
     }
 
@@ -75,11 +73,13 @@ class ProductController extends AbstractController
 
     #[Route('/product/{name}', name: 'product_details')]
     public function details(
-        Product $product,string $name,ProductRepository $productRepository
+        Product $product,
+        string $name,
+        ProductRepository $productRepository
     ): Response {
 
         $product = $productRepository->findOneBy(['name' => $name]);
-         if (!$product) {
+        if (!$product) {
             throw $this->createNotFoundException('Product not found');
         }
 
@@ -89,23 +89,20 @@ class ProductController extends AbstractController
         ]);
     }
 
-
-
-
-
-    // #[Route('/product/cat/{id}', name: 'product_filter')]
-    // public function categoryLink(
-    //     Product $product,Category $category,
-    //     Security $security,
-    //     EntityManagerInterface $manager,
-    //     CartItemRepository $cartItemRepository,ProductRepository $productRepository,
-    // ): Response {
-
-    //     $categoryId = $category->getId();
-    //     $products = $productRepository->findByCategory($categoryId);
-    //     dd($categoryId);
-    //     return $this->redirectToRoute('product', [
-    //         'products' => $products,
-    //     ]);
-    // }
+    #[Route('/product/filter/{id}', name: 'product_filter')]
+    public function filterByCat(ProductRepository $productRepository,
+     $id, PaginatorInterface $paginator, Product $product, 
+     Request $request,CategoryRepository $categoryRepository): Response
+    {
+        // $productsFilter = $productRepository->findByCategory($id);
+        $productsFilter = $productRepository->findByCategory($id); 
+            
+        $categorys = $categoryRepository->findAll(); 
+        
+        // dd($categorys);
+        return $this->render('product/prodFilter.html.twig', [
+            'productsFilter' => $productsFilter,
+            'categorys'=> $categorys,
+        ]);
+    }
 }

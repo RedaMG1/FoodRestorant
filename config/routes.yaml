@@ -20,3 +20,6 @@ product_details:
     path: /product/{name}
     controller: App\Controller\ProductController::details
 
+# cart_remove:
+#     path: /cart/remove/{id}
+#     controller: App\Controller\CartController::remove
