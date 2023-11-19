@@ -20,6 +20,18 @@ product_details:
     path: /product/{name}
     controller: App\Controller\ProductController::details
 
-# cart_remove:
-#     path: /cart/remove/{id}
-#     controller: App\Controller\CartController::remove
+tools:
+    path: /tools
+    controller: App\Controller\ToolsController::index
+
+adminProduct:
+    path: /adminProduct
+    controller: App\Controller\ProductController::adminIndex
+
+adminCategory:
+    path: /adminCategory
+    controller: App\Controller\CategoryController::adminIndex
+
+adminUser:
+    path: /adminUser
+    controller: App\Controller\UserController::index

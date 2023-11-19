@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product Controller
+{% endblock %}
+
+{% block body %}
+
+	<div class="col-lg-12  contenu-blanc shadow-lg">
+
+		<h1>Product Controller</h1>
+		<table class="table table-striped table-advance table-hover">
+			<thead>
+				<tr class="bg-entete">
+					<th class="col-md-1">Id</th>
+					<th class="col-md-1">Name</th>
+					<th class="col-md-1">Price</th>
+					<th class="col-md-4">Description</th>
+					<th class="col-md-1">Category</th>
+					<th class="col-md-1">Quantity</th>
+					<th class="col-md-1">Online</th>
+					<th class="col-md-1">Image</th>
+					<th class="col-md-1">Created_at</th>
+
+					<th class="col-md-2">Actions<span class="pull-right">
+							<a href="{{ path('create_product')}}" class="btn btn-primary btn-sm">
+								<i class="fa fa-save"></i>
+								Add new product</a>
+						</span>
+					</th>
+
+				</tr>
+				{% if button is defined %}
+					<button type="submit" class="btn btn-primary">
+						{{ button }}
+					</button>
+				{% endif %}
+				<div class="container-fluid contenu">
+					{% if not products.items is same as ([]) %}
+						{#in case theres no data yet#}
+						There is
+						{{ products.getTotalItemCount }}
+						product!!
+					</thead><br>
+					{% for flash_message in app.flashes('success') %}
+						<div class="alert alert-success">
+							{{ flash_message }}
+						</div>
+					{% endfor %}
+					<tbody>
+
+						{% for key, product in products %}
+							<tr>
+								<td>{{ product.id }}</td>
+								<td>{{ product.name }}</td>
+								<td>{{ product.price }}</td>
+								<td>{{ product.description }}</td>
+								<td>{{ product.category.name }}</td>
+								<td>{{ product.quantity }}</td>
+								<td>{{ product.online }}</td>
+								<td>{{ product.image }}</td>
+								<td>{{ product.createdAt }}</td>
+
+
+								<td
+									class="row">
+
+									<!-- formulaire pour demander la modification ou la suppression -->
+									{% if is_granted('ROLE_ADMIN') %}
+										<form>
+											<button type="submit" class="btn btn-primary btn-sm" formaction="{{ path('edit_product',{id : product.id}) }}" title="Edit">
+												<i title="Edit">
+													<i class="fa fa-pencil"></i>
+													Edit</button>
+												<button type="submit" class="btn btn-danger btn-sm" formaction="{{ path('delete_product',{id : product.id}) }}" title="Supprimer" onclick="return confirm('Do you really want to delete this product ?');">
+													<i class="fa fa-trash-o "></i>
+													delete</button>
+												<input
+												type="hidden" name="_token" value="{{ csrf_token('action-item' ~ product.id) }}">
+											{#  ~     pour concaténer des chaines en twig #}
+											</form>
+										{% endif %}
+									</td>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+
+				</table>
+				<div class="d-flex justify-content-center">
+					{{ knp_pagination_render(products) }}
+				</div>
+			{% else %}
+				there is no products yet
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
