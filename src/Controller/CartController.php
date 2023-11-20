@@ -20,12 +20,18 @@ class CartController extends AbstractController
     #[Route('/cart', name: 'app_cart')]
     public function index(CartRepository $cartRepository
     ,Request $request,CartItemRepository $cartItemRepository,
-    PaginatorInterface $paginator): Response
+    PaginatorInterface $paginator,Security $security): Response
     {
-        $cartItems = $cartItemRepository->findAll();
-           
+        $user = $security->getUser();
+        if($user){
+            $cartItems = $cartItemRepository->findBy(['user' => $user]); 
+            return $this->render('cart/index.html.twig', [
+                'cartItems' => $cartItems,
+            ]);
+        }
+        
         return $this->render('cart/index.html.twig', [
-            'cartItems' => $cartItems,
+            'cartItems' => [],
         ]);
     }
 
@@ -61,6 +67,4 @@ class CartController extends AbstractController
         }
         return $this->redirectToRoute('cart');
     }
-
-    
 }

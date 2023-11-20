@@ -57,6 +57,7 @@ class ProductController extends AbstractController
 
         $existingCartItem = $cartItemRepository->findOneBy([
             'product' => $product,
+            'user'=>$logedUser,
         ]);
 
         if ($existingCartItem) {

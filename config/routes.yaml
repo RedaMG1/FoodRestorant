@@ -35,3 +35,11 @@ adminCategory:
 adminUser:
     path: /adminUser
     controller: App\Controller\UserController::index
+
+profile:
+    path: /profile
+    controller: App\Controller\ProfileController::index
+
+account:
+    path: /account
+    controller: App\Controller\AccountController::index

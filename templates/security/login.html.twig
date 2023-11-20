@@ -1,31 +1,255 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Log in!
+{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+	{# <form method="post">
+							{% if error %}
+								<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+							{% endif %}
+					
+							{% if app.user %}
+								<div class="mb-3">
+									You are logged in as
+									{{ app.user.userIdentifier }},
+									<a href="{{ path('app_logout') }}">Logout</a>
+								</div>
+							{% endif %}
+					
+							<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+							<label for="inputEmail">Email</label>
+							<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+							<label for="inputPassword">Password</label>
+							<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+					
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					
+							<button class="btn btn-lg btn-primary" type="submit">
+								Sign in
+							</button>
+						</form> #}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+	<div
+		class="customContainer">
+		{# <h2 class="login-title">Log in</h2> #}
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+		<form class="customLogin-form" method="post">
+			{% if error %}
+				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			{% endif %}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+			{% if app.user %}
+				<div class="mb-3">
+					You are logged in as
+					{{ app.user.userIdentifier }},
+					<a href="{{ path('app_logout') }}">Logout</a>
+				</div>
+			{% endif %}
+			<h1 class="h3 mb-3 font-weight-normal">Please Login</h1>
+			<div>
+				<label for="inputEmail">Email
+				</label>
+				<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+			</div>
+
+			<div>
+				<label for="inputPassword">Password
+				</label>
+				<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			</div>
+
+			<button class="btn btn--form" type="submit" value="Log in">
+				Log in
+			</button>
+			{# <a href = "{{path('register')}}" > Sign up </a> #}
+		</form>
+
+	</div>
+	<style>
+		------------------/**
+		 * Style ajouté pour Maya
+		 * Author: MD
+		 * https://mdbootstrap.com/docs/jquery/css/colors/
+		 */
+
+		/* personnalisation classes bootstrap */
+
+		.customContainer .bg-success {
+			background-color: #d46363 !important; /* Red color */
+		}
+
+		.customContainer .btn-primary {
+			background-color: #cf4a4a; /* Red color */
+			border-color: #a12929; /* Darker red for border */
+		}
+
+		.customContainer .btn-primary:hover {
+			color: #fff;
+			background-color: #a12929; /* Darker red on hover */
+			border-color: #870f0f; /* Even darker red for border on hover */
+		}
+
+		.customContainer .table-hover tbody tr:hover {
+			font-weight: bolder;
+			background-color: #fbd6d6; /* Light red on hover */
+		}
+
+		.customContainer .page-link {
+			color: #cf4a4a; /* Red color */
+		}
+
+		.customContainer .page-item.active .page-link {
+			background-color: #cf4a4a; /* Red color for active page link */
+		}
+
+		.customContainer .page-item.disabled .page-link {
+			color: #cf4a4a; /* Red color for disabled page link */
+		}
+
+
+		/* personnalisation html */
+
+
+		.customContainer .customContainer h1 {
+			text-align: center;
+			text-shadow: 2px 2px 5px #cf4a4a; /* Red color for text shadow */
+		}
+
+		/* classes Maya */
+
+		.customContainer .bg-entete {
+			background-color: #ef9a9a; /* Light red */
+		}
+
+		.customContainer .contenu {
+			background-color: #ffebee; /* Very light red */
+			border: 2px solid #cf4a4a; /* Red color for border */
+			border-radius: 6px;
+			line-height: 40px;
+			padding: 10px;
+		}
+
+		.customContainer .contenu-blanc {
+			background-color: white;
+			border: 2px solid #cf4a4a; /* Red color for border */
+			border-radius: 6px;
+			line-height: 40px;
+			padding: 10px;
+		}
+
+		.customContainer .conteneur {
+			background-color: #ffebee; /* Very light red */
+			border: 2px solid #cf4a4a; /* Red color for border */
+			border-radius: 6px;
+			line-height: 25px;
+			font-family: Arial;
+			color: #bf8c8c; /* Light red for text color */
+			padding: 20px;
+			width: 300px;
+			margin: 0 auto;
+			box-shadow: 5px 5px 10px #cf4a4a; /* Red color for box shadow */
+		}
+
+		.customContainer h2 {
+			text-align: center;
+			text-shadow: 2px 2px 5px #cf4a4a; /* Red color for text shadow */
+		}
+
+		.customContainer .temps-icone {
+			vertical-align: middle;
+			margin-right: 20px;
+		}
+
+		.customContainer .temps-previsions {
+			font-size: 1.2em;
+			font-weight: bold;
+		}
+
+		.customContainer span.temperature {
+			margin-left: 15px;
+		}
+		/* -------------------- */
+		.customContainer {
+			width: 400px;
+			margin: auto;
+			padding: 36px 48px 48px;
+			background-color: #f2efee;
+
+			border-radius: 11px;
+			box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
+		}
+
+		.customContainer .login-title {
+			padding: 15px;
+			font-size: 22px;
+			font-weight: 600;
+			text-align: center;
+		}
+
+		.customContainer .login-form {
+			display: grid;
+			grid-template-columns: 1fr;
+			row-gap: 16px;
+		}
+
+		.customContainer .login-form label {
+			display: block;
+			margin-bottom: 8px;
+		}
+
+		.customContainer .login-form input {
+			width: 100%;
+			padding: 1.2rem;
+			border-radius: 9px;
+			border: none;
+		}
+
+		.customContainer .login-form input:focus {
+			outline: none;
+			box-shadow: 0 0 0 4px rgba(253, 242, 233, 0.5);
+		}
+
+		.customContainer .btn--form {
+			background-color: #f48982;
+			color: #fdf2e9;
+			align-self: end;
+			padding: 8px;
+		}
+
+		.customContainer .btn,
+		.btn:link,
+		.btn:visited {
+			display: inline-block;
+			text-decoration: none;
+			font-size: 20px;
+			font-weight: 600;
+			border-radius: 9px;
+			border: none;
+			cursor: pointer;
+			font-family: inherit;
+			transition: all 0.3s;
+		}
+
+		.customContainer button {
+			outline: 1px solid #f48982;
+		}
+
+		.customContainer .btn--form:hover {
+			background-color: #fdf2e9;
+			color: #f48982;
+		}
+		.customContainer .customColor {
+			background-color: #f36056;
+			margin: 0 0 5rem;
+		}
+		.body-marginTop {
+			margin-top: 10rem; /* Adjust the value as needed */
+		}
+		.customFooter-margin {
+			margin-top: 5rem; /* Adjust the value as needed */
+		}
+	</style>
 {% endblock %}
