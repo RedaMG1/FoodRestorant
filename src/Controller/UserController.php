@@ -47,7 +47,7 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $currentDate = date('Y-m-d H:i:s');
         $form->handleRequest($request);
-        if (!$authorizationChecker->isGranted('ROLE_ADMIN') && !$authorizationChecker->isGranted('ROLE_TEACHER')) {
+        if (!$authorizationChecker->isGranted('ROLE_ADMIN') ){
             throw new AccessDeniedException();
             return $this->render('access_denied.html.twig');
         }
