@@ -31,11 +31,8 @@ class ProductController extends AbstractController
         Request $request,
         CategoryRepository $categoryRepository
     ): Response {
-        $products = $paginator->paginate(
-            $productRepository->findAll(), // query
-            $request->query->getInt('page', 1), /*page number*/
-            5 /*limit per page*/
-        );
+        $products =  $productRepository->findAll(); // query
+            
         $categorys =
             $categoryRepository->findAll();
 

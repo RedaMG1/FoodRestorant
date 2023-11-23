@@ -44,16 +44,14 @@ class UserType extends AbstractType
                 'multiple' => true, // Allow selecting multiple roles
                 'expanded' => true, // Display roles as checkboxes
             ])
-            ->add('password', PasswordType::class, [
-                'required' => true,
-                'attr' => [
-                    // 'autocomplete' => 'new-password', // This is to hint to the browser that it should not suggest previous passwords
-                    // 'placeholder' => '********',      // This is to display asterisks as a placeholder
-                ]
-            ])
+            // ->add('password', PasswordType::class, [
+            //     'required' => true,
+            //     'attr' => [
+            //         // 'autocomplete' => 'new-password', // This is to hint to the browser that it should not suggest previous passwords
+            //         'placeholder' => '********',      // This is to display asterisks as a placeholder
+            //     ]
+            // ])
 
-            // ->add('created_at')
-            // ->add('updated_at')
             ->add('Submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'

@@ -72,7 +72,7 @@ class AccountController extends AbstractController
 
             'button' => 'Submit',
             'form' => $form->createView(),
-
+            'user'=>$user,
         ]);
     }
 

@@ -3,10 +3,12 @@
 namespace App\Form;
 
 use App\Entity\User;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,30 +26,46 @@ class AccountType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstName')
-            ->add('lastName')
+            ->add('firstName', TextType::class, [
+                'required' => true,
+                'label' => 'First Name',
+                'attr' => [
+                    'placeholder' => 'Enter your first name',
+                    'class' => 'form-control',
+                ]
+            ])
+            ->add('lastName', TextType::class, [
+                'required' => true,
+                'label' => 'Last Name',
+                'attr' => [
+                    'placeholder' => 'Enter your last name',
+                    'class' => 'form-control',
+                ]
+            ])
 
             ->add('email', EmailType::class, [
                 'required' => true,
+                'label' => 'Email',
                 'attr' => [
                     'placeholder' => 'Enter your email',
+                    'class' => 'form-control',
                 ]
 
             ])
 
-            ->add('password', PasswordType::class, [
-                'required' => true,
-                'attr' => [
-                    // 'autocomplete' => 'new-password', // This is to hint to the browser that it should not suggest previous passwords
-                    // 'placeholder' => '********',      // This is to display asterisks as a placeholder
-                ]
-            ])
+            // ->add('password', PasswordType::class, [
+            //     'required' => true,
+            //     'attr' => [
+            //         // 'autocomplete' => 'new-password', // This is to hint to the browser that it should not suggest previous passwords
+            //         // 'placeholder' => '********',      // This is to display asterisks as a placeholder
+            //     ]
+            // ])
 
-            // ->add('created_at')
-            // ->add('updated_at')
-            ->add('Submit', SubmitType::class, [
+            ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => 'btn btn-primary',
+                    'placeholder' => '********',
+                    
                 ],
             ]);
     }

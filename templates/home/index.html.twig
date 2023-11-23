@@ -8,14 +8,14 @@
 
 		<div class="hero_area">
 			<div class="bg-box">
-				<img src="{{ asset('assets/images/' ~ 'hero-bg.jpg') }}" alt="">
+				<img src="{{ asset('assets/images/' ~ 'hero-bg.jpg') }}"  alt="">
 			</div>
 			<!-- header section strats -->
 			<!-- <header class="header_section">
-			      <div class="container">
-			       
-			      </div>
-			    </header> -->
+															      <div class="container">
+															       
+															      </div>
+															    </header> -->
 
 			<!-- slider section -->
 				<section class="slider_section "> <div id="customCarousel1" class="carousel slide" data-ride="carousel">
@@ -102,45 +102,44 @@
 		<section class="offer_section layout_padding-bottom">
 			<div class="offer_container">
 				<div class="container ">
-					<div class="row">
-						<div class="col-md-6  ">
-							<div class="box ">
-								<div class="img-box">
-									<img src="images/o1.jpg" alt="">
-								</div>
-								<div class="detail-box">
-									<h5>
-										Tasty Thursdays
-									</h5>
-									<h6>
-										<span>20%</span>
-										Off
-									</h6>
-									<a href="">
-										Order Now
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6  ">
-							<div class="box ">
-								<div class="img-box">
-									<img src="images/o2.jpg" alt="">
-								</div>
-								<div class="detail-box">
-									<h5>
-										Pizza Days
-									</h5>
-									<h6>
-										<span>15%</span>
-										Off
-									</h6>
-									<a href="">
-										Order Now
-									</a>
-								</div>
-							</div>
-						</div>
+					<div class="row">{# <div class="col-md-6  ">
+																															<div class="box ">
+																																<div class="img-box">
+																																	<img src="{{ asset('assets/images/' ~ '01.jpg') }}" alt="">
+																																</div>
+																																<div class="detail-box">
+																																	<h5>
+																																		Tasty Thursdays
+																																	</h5>
+																																	<h6>
+																																		<span>20%</span>
+																																		Off
+																																	</h6>
+																																	<a href="">
+																																		Order Now
+																																	</a>
+																																</div>
+																															</div>
+																														</div> #}
+						{# <div class="col-md-6  ">
+																															<div class="box ">
+																																<div class="img-box">
+																																	<img src="images/o2.jpg" alt="">
+																																</div>
+																																<div class="detail-box">
+																																	<h5>
+																																		Pizza Days
+																																	</h5>
+																																	<h6>
+																																		<span>15%</span>
+																																		Off
+																																	</h6>
+																																	<a href="">
+																																		Order Now
+																																	</a>
+																																</div>
+																															</div>
+																														</div> #}
 					</div>
 				</div>
 			</div>
@@ -159,222 +158,57 @@
 				</div>
 
 				<ul class="filters_menu">
-					<li class="active" data-filter="*">All</li>
-					<li data-filter=".burger">Burger</li>
-					<li data-filter=".pizza">Pizza</li>
-					<li data-filter=".pasta">Pasta</li>
-					<li data-filter=".fries">Fries</li>
+
+					<li class="active" data-filter="*">
+						<a class="" href="{{ path('product') }}">All</a>
+					</li>
+					{% for key, category in categorys %}
+						<li data-filter=".burger">
+							<a class="" href="{{ path('product_filter', { 'id': category.id }) }}">
+								{{ category.name }}
+							</a>
+						</li>
+					{% endfor %}
+					{# <li data-filter=".burger">Burger</li>
+																																												<li data-filter=".pizza">Pizza</li>
+																																												<li data-filter=".pasta">Pasta</li>
+																																												<li data-filter=".fries">Fries</li> #}
 				</ul>
 
 				<div class="filters-content">
 					<div class="row grid">
-						<div class="col-sm-6 col-lg-4 all pizza">
-							<div class="box">
-								<div>
-									<div class="img-box">
-										<img src="images/f1.png" alt="">
-									</div>
-									<div class="detail-box">
-										<h5>
-											Delicious Pizza
-										</h5>
-										<p>
-											Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-										</p>
-										<div class="options">
-											<h6>
-												$20
-											</h6>
-											<a href=""></a>
+						{% for key, product in products %}
+							<div class="col-sm-6 col-lg-4 all pizza">
+								<div class="box">
+									<div>
+										<div class="img-box">
+											<img src="{{ asset('assets/images/' ~ product.image) }}" alt="">
+										</div>
+										<div class="detail-box">
+											<h5>
+												{{ product.name }}
+											</h5>
+											<p>
+												{{ product.description }}
+
+											</p>
+											<div class="">
+												<h6>
+													${{ product.price }}
+												</h6>
+												<a href="{{ path('product_details', {'name': product.name}) }}" class="btn btn-primary">
+													Details
+												</a>
+												<a href="{{ path('product_add', { id: product.id }) }}">
+													<i class="fas fa-shopping-cart">
+														Add to Cart</i>
+												</a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-6 col-lg-4 all burger">
-							<div class="box">
-								<div>
-									<div class="img-box">
-										<img src="images/f2.png" alt="">
-									</div>
-									<div class="detail-box">
-										<h5>
-											Delicious Burger
-										</h5>
-										<p>
-											Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-										</p>
-										<div class="options">
-											<h6>
-												$15
-											</h6>
-											<a href=""></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-4 all pizza">
-							<div class="box">
-								<div>
-									<div class="img-box">
-										<img src="images/f3.png" alt="">
-									</div>
-									<div class="detail-box">
-										<h5>
-											Delicious Pizza
-										</h5>
-										<p>
-											Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-										</p>
-										<div class="options">
-											<h6>
-												$17
-											</h6>
-											<a href=""></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-4 all pasta">
-							<div class="box">
-								<div>
-									<div class="img-box">
-										<img src="images/f4.png" alt="">
-									</div>
-									<div class="detail-box">
-										<h5>
-											Delicious Pasta
-										</h5>
-										<p>
-											Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-										</p>
-										<div class="options">
-											<h6>
-												$18
-											</h6>
-											<a href=""></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-4 all fries">
-							<div class="box">
-								<div>
-									<div class="img-box">
-										<img src="images/f5.png" alt="">
-									</div>
-									<div class="detail-box">
-										<h5>
-											French Fries
-										</h5>
-										<p>
-											Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-										</p>
-										<div class="options">
-											<h6>
-												$10
-											</h6>
-											<a href=""></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-4 all pizza">
-							<div class="box">
-								<div>
-									<div class="img-box">
-										<img src="images/f6.png" alt="">
-									</div>
-									<div class="detail-box">
-										<h5>
-											Delicious Pizza
-										</h5>
-										<p>
-											Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-										</p>
-										<div class="options">
-											<h6>
-												$15
-											</h6>
-											<a href=""></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-4 all burger">
-							<div class="box">
-								<div>
-									<div class="img-box">
-										<img src="images/f7.png" alt="">
-									</div>
-									<div class="detail-box">
-										<h5>
-											Tasty Burger
-										</h5>
-										<p>
-											Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-										</p>
-										<div class="options">
-											<h6>
-												$12
-											</h6>
-											<a href=""></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-4 all burger">
-							<div class="box">
-								<div>
-									<div class="img-box">
-										<img src="images/f8.png" alt="">
-									</div>
-									<div class="detail-box">
-										<h5>
-											Tasty Burger
-										</h5>
-										<p>
-											Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-										</p>
-										<div class="options">
-											<h6>
-												$14
-											</h6>
-											<a href=""></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-4 all pasta">
-							<div class="box">
-								<div>
-									<div class="img-box">
-										<img src="images/f9.png" alt="">
-									</div>
-									<div class="detail-box">
-										<h5>
-											Delicious Pasta
-										</h5>
-										<p>
-											Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
-										</p>
-										<div class="options">
-											<h6>
-												$10
-											</h6>
-											<a href=""></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						{% endfor %}
 					</div>
 				</div>
 				<div class="btn-box">
@@ -407,9 +241,9 @@
 							</div>
 							<p>
 								There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-								              in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-								              are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-								              the middle of text. All
+																																								              in some form, by injected humour, or randomised words which don't look even slightly believable. If you
+																																								              are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
+																																								              the middle of text. All
 							</p>
 							<a href="">
 								Read More
@@ -534,7 +368,7 @@
 				</div>
 			</div>
 		</section>
-
+		
 		<!-- end client section -->
 
 
