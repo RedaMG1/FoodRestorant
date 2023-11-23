@@ -12,7 +12,11 @@
 		<section class="food_section layout_padding">
 
 			<div class="container">
-
+				{% for flash_message in app.flashes('success') %}
+					<div class="alert alert-success">
+						{{ flash_message }}
+					</div>
+				{% endfor %}
 				<div class="heading_container heading_center">
 					<h2>
 						Our Menu
@@ -21,65 +25,62 @@
 
 				<ul class="filters_menu">
 
-					<a class="" href="{{ path('product') }}">All</a></li>
-					{% for key, category in categorys %}
-						<li data-filter=".burger">
-							<a class="" href="{{ path('product_filter', { 'id': category.id }) }}">
-								{{ category.name }}
-							</a>
-						</li>
-					{% endfor %}
-					{# <li data-filter=".burger">Burger</li>
-																								<li data-filter=".pizza">Pizza</li>
-																								<li data-filter=".pasta">Pasta</li>
-																								<li data-filter=".fries">Fries</li> #}
-				</ul>
+					<a class="" href="{{ path('product') }}">All</a>
+				</li>
+				{% for key, category in categorys %}
+					<li data-filter=".burger">
+						<a class="" href="{{ path('product_filter', { 'id': category.id }) }}">
+							{{ category.name }}
+						</a>
+					</li>
+				{% endfor %}
+				{# <li data-filter=".burger">Burger</li>
+																												<li data-filter=".pizza">Pizza</li>
+																												<li data-filter=".pasta">Pasta</li>
+																												<li data-filter=".fries">Fries</li> #}
+			</ul>
 
-				<div class="filters-content">
-					<div class="row grid">
-						{% for key, product in products %}
-							<div class="col-sm-6 col-lg-4 all pizza">
-								<div class="box">
-									<div>
-										<div class="img-box">
-											<img src="{{ asset('assets/images/' ~ product.image) }}" alt="">
-										</div>
-										<div class="detail-box">
-											<h5>
-												{{ product.name }}
-											</h5>
-											<p>
-												{{ product.description }}
+			<div class="filters-content">
+				<div class="row grid">
+					{% for key, product in products %}
+						<div class="col-sm-6 col-lg-4 all pizza">
+							<div class="box">
+								<div>
+									<div class="img-box">
+										<img src="{{ asset('assets/images/' ~ product.image) }}" alt="">
+									</div>
+									<div class="detail-box">
+										<h5>
+											{{ product.name }}
+										</h5>
+										<p>
+											{{ product.description }}
 
-											</p>
-											<div class="">
-												<h6>
-													${{ product.price }}
-												</h6>
-												<a href="{{ path('product_details', {'name': product.name}) }}" class="btn btn-primary">
-													Details
-												</a>
-												<a href="{{ path('product_add', { id: product.id }) }}">
-													<i class="fas fa-shopping-cart">
-														Add to Cart</i>
-												</a>
-											</div>
+										</p>
+										<div class="">
+											<h6>
+												${{ product.price }}
+											</h6>
+											<a href="{{ path('product_details', {'name': product.name}) }}" class="btn btn-primary">
+												Details
+											</a>
+											<a href="{{ path('product_add', { id: product.id }) }}">
+												<i class="fas fa-shopping-cart">
+													Add to Cart</i>
+											</a>
 										</div>
 									</div>
 								</div>
 							</div>
-						{% endfor %}
-					</div>
-				</div>
-				<div class="btn-box">
-					<a href="">
-						View More
-					</a>
+						</div>
+					{% endfor %}
 				</div>
 			</div>
-
-		</section>
-
-
+			<div class="btn-box">
+				<a href="">
+					View More
+				</a>
+			</div>
+		</div>
 	</body>
-</body></html>{% endblock %}
+</section></body></body></html>{% endblock %}

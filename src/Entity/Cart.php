@@ -21,6 +21,9 @@ class Cart
     #[ORM\OneToMany(mappedBy: 'cart', targetEntity: CartItem::class)]
     private Collection $cartItems;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $amount = null;
+
     public function __construct()
     {
         $this->cartItems = new ArrayCollection();
@@ -69,6 +72,18 @@ class Cart
                 $cartItem->setCart(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAmount(): ?float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(?float $amount): static
+    {
+        $this->amount = $amount;
 
         return $this;
     }

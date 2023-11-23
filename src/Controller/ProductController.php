@@ -69,6 +69,7 @@ class ProductController extends AbstractController
             $manager->persist($cartItem);
             $manager->flush();
         }
+        $this->addFlash('success', $product->getName().' has been added to your cart successfully!');
         return $this->redirectToRoute('product');
     }
 

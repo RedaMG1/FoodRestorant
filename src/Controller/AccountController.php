@@ -94,7 +94,6 @@ class AccountController extends AbstractController
         }
        
         $form = $this->createForm(AddressType::class, $address);
-
         $form->handleRequest($request);
         $currentDate = date('Y-m-d H:i:s');
 

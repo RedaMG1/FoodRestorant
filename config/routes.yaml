@@ -43,3 +43,7 @@ profile:
 account:
     path: /account
     controller: App\Controller\AccountController::index
+
+payement:
+    path: /payement
+    controller: App\Controller\PayementController::index
