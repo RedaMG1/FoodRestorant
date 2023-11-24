@@ -19,7 +19,7 @@
 
 					{% for key, cartItem in cartItems %}
 						<div class="item">
-							<span class="price">{{ cartItem.product.price }}</span>
+							<span class="price">${{ cartItem.product.price * cartItem.quantity }}</span>
 							<p class="item-name">{{ cartItem.product.name }}</p>
 							<p class="item-description">Lorem ipsum dolor sit amet</p>
 						</div>

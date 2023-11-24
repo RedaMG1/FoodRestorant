@@ -44,10 +44,10 @@ class PayementController extends AbstractController
 
         $totalAmount = 0;
         foreach ($cartItems as $cartItem) {
-            $totalAmount += $cartItem->getProduct()->getPrice();
+            $totalAmount += $cartItem->getProduct()->getPrice() * $cartItem->getQuantity();
         }
         $cartItems = $cartItemRepository->findBy(['user' => $loggedUser]);
-
+        
         $cart->setAmount($totalAmount);
         $manager->persist($cart);
         $manager->flush();
