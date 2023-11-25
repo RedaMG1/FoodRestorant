@@ -24,9 +24,13 @@ class Cart
     #[ORM\Column(nullable: true)]
     private ?float $amount = null;
 
+    #[ORM\OneToMany(mappedBy: 'cart', targetEntity: Ordering::class)]
+    private Collection $orderings;
+
     public function __construct()
     {
         $this->cartItems = new ArrayCollection();
+        $this->orderings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,6 +88,36 @@ class Cart
     public function setAmount(?float $amount): static
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ordering>
+     */
+    public function getOrderings(): Collection
+    {
+        return $this->orderings;
+    }
+
+    public function addOrdering(Ordering $ordering): static
+    {
+        if (!$this->orderings->contains($ordering)) {
+            $this->orderings->add($ordering);
+            $ordering->setCart($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdering(Ordering $ordering): static
+    {
+        if ($this->orderings->removeElement($ordering)) {
+            // set the owning side to null (unless already changed)
+            if ($ordering->getCart() === $this) {
+                $ordering->setCart(null);
+            }
+        }
 
         return $this;
     }

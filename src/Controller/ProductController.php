@@ -10,6 +10,7 @@ use App\Form\ProductType;
 use App\Form\SearchType;
 use App\Model\SearchData;
 use App\Repository\CartItemRepository;
+use App\Repository\CartRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,7 +33,7 @@ class ProductController extends AbstractController
         CategoryRepository $categoryRepository
     ): Response {
         $products =  $productRepository->findAll(); // query
-            
+
         $categorys =
             $categoryRepository->findAll();
 
@@ -45,16 +46,17 @@ class ProductController extends AbstractController
     #[Route('/product/add/{id}', name: 'product_add')]
     public function add(
         Product $product,
+        CartRepository $cartRepository,
         Security $security,
         EntityManagerInterface $manager,
         CartItemRepository $cartItemRepository
     ): Response {
 
         $logedUser = $security->getUser();
-
+        $cart = $cartRepository->findOneBy(['user' => $logedUser]);
         $existingCartItem = $cartItemRepository->findOneBy([
             'product' => $product,
-            'user'=>$logedUser,
+            'user' => $logedUser,
         ]);
 
         if ($existingCartItem) {
@@ -66,10 +68,13 @@ class ProductController extends AbstractController
             $cartItem->setProduct($product);
             $cartItem->setUser($logedUser);
             $cartItem->setQuantity(1);
+            if (!$cart) {
+                $cartItem->setCart($cart);
+            }
             $manager->persist($cartItem);
             $manager->flush();
         }
-        $this->addFlash('success', $product->getName().' has been added to your cart successfully!');
+        $this->addFlash('success', $product->getName() . ' has been added to your cart successfully!');
         return $this->redirectToRoute('product');
     }
 
@@ -111,7 +116,7 @@ class ProductController extends AbstractController
             'categorys' => $categorys,
         ]);
     }
-// ----------------------------------------------------admin----------------------
+    // ----------------------------------------------------admin----------------------
 
     #[Route('/product/admin', name: 'app_product')]
     public function adminIndex(
@@ -159,7 +164,7 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('adminProduct');
         }
         return $this->render('product/admin/create.html.twig', [
-            
+
             'button' => 'Submit',
             'form' => $form->createView(),
         ]);
@@ -184,7 +189,7 @@ class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $product = $form->getData();
-            
+
             $manager->persist($product);
             $manager->flush();
             // dd($form->getData($product));

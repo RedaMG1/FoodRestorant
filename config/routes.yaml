@@ -47,3 +47,16 @@ account:
 payement:
     path: /payement
     controller: App\Controller\PayementController::index
+
+
+checkout:
+    path: /checkout
+    controller: App\Controller\checkoutController::index
+
+login:
+    path: /login
+    controller: App\Controller\LoginController::index
+
+register:
+    path: /register
+    controller: App\Controller\RegisterController::index

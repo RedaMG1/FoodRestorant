@@ -31,6 +31,9 @@ class Ordering
     #[ORM\OneToMany(mappedBy: 'ordering', targetEntity: Payement::class)]
     private Collection $payements;
 
+    #[ORM\ManyToOne(inversedBy: 'orderings')]
+    private ?Cart $cart = null;
+
     public function __construct()
     {
         $this->payements = new ArrayCollection();
@@ -115,6 +118,18 @@ class Ordering
                 $payement->setOrdering(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCart(): ?Cart
+    {
+        return $this->cart;
+    }
+
+    public function setCart(?Cart $cart): static
+    {
+        $this->cart = $cart;
 
         return $this;
     }
