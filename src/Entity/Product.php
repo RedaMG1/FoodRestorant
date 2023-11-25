@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -42,9 +43,14 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: CartItem::class)]
     private Collection $cartItems;
 
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $updated_at = null;
+
     public function __construct()
     {
         $this->cartItems = new ArrayCollection();
+        $currentDate = date('Y-m-d h-s-m');
+        $this->updated_at = $currentDate;
     }
 
     public function getId(): ?int
@@ -174,6 +180,18 @@ class Product
                 $cartItem->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?string $updated_at): static
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

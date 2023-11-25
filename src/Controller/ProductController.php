@@ -189,7 +189,7 @@ class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $product = $form->getData();
-
+            
             $manager->persist($product);
             $manager->flush();
             // dd($form->getData($product));

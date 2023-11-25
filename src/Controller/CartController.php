@@ -32,6 +32,8 @@ class CartController extends AbstractController
             return $this->render('cart/index.html.twig', [
                 'cartItems' => $cartItems,
             ]);
+        } else {
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('cart/index.html.twig', [

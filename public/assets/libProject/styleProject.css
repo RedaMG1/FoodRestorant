@@ -1016,14 +1016,39 @@ nav {
 
 /*# sourceMappingURL=style.css.map */
 
-#customCartQuantity{
+#customCartQuantity {
   width: 50px;
 }
-#customCartDeleteBtn:hover{
+
+#customCartDeleteBtn:hover {
   background-color: rgb(244, 42, 42);
   transition: 0.5s;
 }
+
 .nav-item.dropdown:hover .dropdown-menu {
   display: block;
 }
 
+.filters_menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.filters_menu a {
+  text-decoration: none;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: 2px solid #372906; /* Updated border color */
+  border-radius: 5px;
+  color: #ffffff; /* Updated text color */
+  background-color: #002d39; /* Updated background color */
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.filters_menu a:hover {
+  background-color: #004355; /* Updated hover background color */
+  color: #fff; /* Updated hover text color */
+  border-color: #fff; /* Updated hover border color */
+}

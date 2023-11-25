@@ -20,9 +20,8 @@
 				</div>
 
 				<ul class="filters_menu">
+					<a class="link" href="{{ path('product') }}">All</a>
 
-					<li class="active" data-filter="*">
-						<a class="" href="{{ path('product') }}">All</a></li>
 					{% for key, category in categorys %}
 						<li data-filter=".burger">
 							<a class="" href="{{ path('product_filter', { 'id': category.id }) }}">
@@ -30,10 +29,7 @@
 							</a>
 						</li>
 					{% endfor %}
-					{# <li data-filter=".burger">Burger</li>
-																													<li data-filter=".pizza">Pizza</li>
-																													<li data-filter=".pasta">Pasta</li>
-																													<li data-filter=".fries">Fries</li> #}
+
 				</ul>
 
 				<div class="filters-content">

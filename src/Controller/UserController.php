@@ -54,7 +54,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
             $user->setCreatedAt($currentDate);
-            $user->setUpdatedAt($currentDate);
+   
 
             $manager->persist($user);
             $manager->flush();
@@ -87,7 +87,7 @@ class UserController extends AbstractController
         }
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
-            $user->setCreatedAt($currentDate);
+            $user->setCreatedAt($user->getCreatedAt());
             $user->setUpdatedAt($currentDate);
 
             $user = $form->getData();

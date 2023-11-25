@@ -35,9 +35,13 @@ class AccountController extends AbstractController
         AddressRepository $addressRepository
     ): Response {
         $user = $security->getUser();
+        if(!$user){
+            return $this->redirectToRoute('login');
+        }
         $addressInfo = $addressRepository->findOneBy([
             'user' => $user
         ]);
+        
         return $this->render('account/index.html.twig', [
             'addressInfo' => $addressInfo,
             'user' => $user,
