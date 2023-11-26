@@ -95,8 +95,20 @@ class PayementController extends AbstractController
     }
 
     #[Route('/payement_success/{id}', name: 'payement_success')]
-    public function stripeSuccess($id): RedirectResponse
-    {
+    public function stripeSuccess(
+        $id,
+        Security $security,
+        EntityManagerInterface $manager,
+        CartItemRepository $cartItemRepository
+    ): RedirectResponse {
+        $loggedUser = $security->getUser();
+        $cartItems = $cartItemRepository->findBy(['user' => $loggedUser]);
+        foreach ($cartItems as $cartItem) {
+            $manager->remove($cartItem);
+            $manager->flush();
+        }
+
+
         return $this->redirectToRoute('product');
     }
     #[Route('/payement_cancel/{id}', name: 'payement_cancel')]

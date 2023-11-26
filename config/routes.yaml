@@ -60,3 +60,7 @@ login:
 register:
     path: /register
     controller: App\Controller\RegisterController::index
+
+contact:
+    path: /contact
+    controller: App\Controller\ContactController::index

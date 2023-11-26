@@ -58,7 +58,9 @@ class ProductController extends AbstractController
             'product' => $product,
             'user' => $logedUser,
         ]);
-
+        if(!$logedUser){
+            return $this->redirectToRoute('login');
+        }
         if ($existingCartItem) {
             $existingCartItem->setQuantity($existingCartItem->getQuantity() + 1);
             $manager->persist($existingCartItem);
